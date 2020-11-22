@@ -1,0 +1,59 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<List<Integer>> arr = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        
+        if(root == null)return null;
+        List<Integer> t1 = new LinkedList<>();
+        t1.add(root.val);
+        arr.add(t1);
+        queue.add(root);
+        int size = 1;
+        
+        while(queue.size() > 0){
+            
+            int newSize = 0;
+            t1 = new LinkedList<>();
+            for(int p = 0; p < size; p++){
+                TreeNode temp = queue.poll();
+                if(temp.left != null){
+                    t1.add(temp.left.val);
+                    newSize++;
+                    queue.add(temp.left);
+                }
+                if(temp.right != null){
+                    t1.add(temp.right.val);
+                    newSize++;
+                    queue.add(temp.right);
+                }
+            }
+            size = newSize;
+            if(t1.size() > 0) arr.add(t1);
+        }
+        
+        List<Double> db = new LinkedList<>();
+        for(int i = 0; i < arr.size(); i++){
+            long d = 0;
+            for(int j = 0; j < arr.get(i).size(); j++){
+                d += arr.get(i).get(j);
+            }
+            db.add(d/(arr.get(i).size() * 1.0));
+        }
+        return db;
+    }
+}
