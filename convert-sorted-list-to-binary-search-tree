@@ -1,0 +1,59 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode sortedListToBST(ListNode head) {
+        TreeNode r = new TreeNode();
+        int c = 0;
+        ListNode h1 = head;
+        while(h1 != null){
+            c++;
+            h1 = h1.next;
+        }
+        r = toTree(head, 1, c, r);
+        return r;
+    }
+    
+    public int getNodeIndex(ListNode head, int n){
+        ListNode temp = head;
+            while(n > 1){
+                temp = temp.next;
+                n--;
+            }
+            return temp.val;
+    }
+    
+    public TreeNode toTree(ListNode head, int a, int b, TreeNode r){
+        if(a < 0 || b < 0 || a > b)return null;
+        if(head == null)return null;
+        if(a == b){
+            return new TreeNode(getNodeIndex(head, a));
+        }
+        r = new TreeNode(getNodeIndex(head, (a+b)/2));
+        r.left = toTree(head, a, ((a+b)/2)-1, r.left);
+        r.right = toTree(head, ((a+b))/2+1, b, r.right);
+        return r;
+    }
+}
