@@ -1,0 +1,56 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+        
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> l = new LinkedList<>();
+        if(root == null)return l;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while(stack.size() > 0){
+            TreeNode temp = stack.peek();
+            
+            if(temp.left != null && temp.left.val != Integer.MIN_VALUE){
+                stack.push(temp.left);
+                continue;
+            }
+            else if(temp.right != null && temp.right.val != Integer.MIN_VALUE){
+                stack.push(temp.right);
+                continue;
+            }
+            else if(temp.left == null && temp.right == null){
+                TreeNode x = stack.pop();
+                String str = "";
+                for(int i = 0; i < stack.size(); i++){
+                    str += stack.get(i).val + "->";
+                }
+                str += x.val;
+                x.val = Integer.MIN_VALUE;
+                l.add(str);
+            }
+            else if(temp.left != null && temp.right != null && temp.left.val == Integer.MIN_VALUE && temp.right.val == Integer.MIN_VALUE){
+                stack.pop().val = Integer.MIN_VALUE;
+            }
+            else if(temp.left == null && temp.right.val == Integer.MIN_VALUE){
+                stack.pop().val = Integer.MIN_VALUE;
+            }
+            else if(temp.right == null && temp.left.val == Integer.MIN_VALUE){
+                stack.pop().val = Integer.MIN_VALUE;
+            }
+        }
+        return l;
+    }
+}
