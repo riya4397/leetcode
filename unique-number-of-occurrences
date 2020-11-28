@@ -1,0 +1,28 @@
+class Solution {
+    public boolean uniqueOccurrences(int[] arr) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        for(int i = 0; i < arr.length; i++){
+            if(map.containsKey(arr[i])){
+                int f = map.get(arr[i]);
+                f++;
+                map.replace(arr[i], f);
+            }else{
+                map.put(arr[i], 1);
+            }
+        }
+        
+        HashSet<Integer> set = new HashSet<>();
+        
+        for(Map.Entry<Integer, Integer> e : map.entrySet()){
+            int v = e.getValue();
+            if(set.contains(v)){
+                return false;
+            }
+            else{
+                set.add(v);
+            }
+        }
+        return true;
+    }
+}
