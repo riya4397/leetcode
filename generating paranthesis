@@ -1,0 +1,25 @@
+class Solution {
+    List<String> list;
+    public List<String> generateParenthesis(int n) {
+        list = new ArrayList<>();
+        generate("(", n-1, n);
+        return list;
+    }
+    
+    public void generate(String s, int open, int close){
+        System.out.println("s = " + s + " open = " + open + " close = " + close);
+        if(open < 0)return;
+        if(close < 0)return;
+        
+        if(open == 0 && close == 0){
+            list.add(s);
+            return;
+        }
+        else if(open == close){
+            s = s + "(";
+            open--;
+        }
+        generate(s+"(", open-1, close);
+        generate(s+")", open, close-1);
+    }
+}
