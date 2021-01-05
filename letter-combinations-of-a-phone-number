@@ -1,0 +1,75 @@
+class Solution {
+    List<String> list;
+    public List<String> letterCombinations(String digits) {
+        list = new ArrayList<>();
+        letter(digits);
+        return list;
+    }
+    
+    public void letter(String digits){
+        char arr[][] = {{'a', 'b', 'c'},
+                       {'d', 'e', 'f'},
+                       {'g', 'h', 'i'},
+                       {'j', 'k', 'l'},
+                       {'m', 'n', 'o'},
+                       {'p', 'q', 'r', 's'},
+                       {'t', 'u', 'v'},
+                       {'w', 'x', 'y', 'z'}};
+        
+        if(digits.length() == 1){
+            int in1 = digits.charAt(0)-'2';
+            
+            for(int i = 0; i < arr[in1].length; i++){
+                list.add(arr[in1][i]+"");
+            }
+        }        
+        
+        else if(digits.length() == 2){
+            int in1 = digits.charAt(0)-'2';
+            int in2 = digits.charAt(1)-'2';
+            for(int i = 0; i < arr[in1].length; i++){
+                for(int j = 0; j < arr[in2].length; j++){
+                    String str = ""+arr[in1][i]+arr[in2][j];
+                    list.add(str);
+                }
+            }
+        }
+        
+        else if(digits.length() == 3){
+            
+            int in1 = digits.charAt(0)-'2';
+            int in2 = digits.charAt(1)-'2';
+            int in3 = digits.charAt(2)-'2';
+            
+            for(int i = 0; i < arr[in1].length; i++){
+                for(int j = 0; j < arr[in2].length; j++){
+                    for(int k = 0; k < arr[in3].length; k++){
+                        String str = ""+arr[in1][i]+arr[in2][j]+arr[in3][k];
+                        list.add(str);
+                    }                    
+                }
+            }
+        }
+        
+        else if(digits.length() == 4){
+            
+            int in1 = digits.charAt(0)-'2';
+            int in2 = digits.charAt(1)-'2';
+            int in3 = digits.charAt(2)-'2';
+            int in4 = digits.charAt(3)-'2';
+            
+            for(int i = 0; i < arr[in1].length; i++){
+                for(int j = 0; j < arr[in2].length; j++){
+                    for(int k = 0; k < arr[in3].length; k++){
+                        for(int m = 0; m < arr[in4].length; m++){
+                            String str = ""+arr[in1][i]+arr[in2][j]+arr[in3][k]+arr[in4][m];
+                            list.add(str);
+                        }
+                        
+                    }                    
+                }
+            }
+        }
+    }
+    
+}
